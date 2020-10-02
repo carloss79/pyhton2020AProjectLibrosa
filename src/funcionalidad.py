@@ -21,8 +21,12 @@ def prepareFile(ruta):
     return x,y
 
 def load_data(test_size=0.2):
+    path = "C:\\Users\\carlos\\gitKraken\\pyhton2020AProjectLibrosa\\resources\\data\\Actor_*\\*.wav"
+
+    path = "../resources/data/Actor_*/*.wav"
+    
     x,y=[],[]
-    for file in glob.glob("C:\\Users\\carlos\\gitKraken\\pyhton2020AProjectLibrosa\\resources\\data\\Actor_*\\*.wav"):
+    for file in glob.glob(path):
         file_name=os.path.basename(file)
         emotion=emotions[file_name.split("-")[2]]
         if emotion not in observed_emotions:
@@ -113,7 +117,7 @@ def buttonStopFunction(labelAudioIcon, labelAudioText, labelRecordingText):
 
 def buttonPredictFunction(labelResultadoEmocion, labelEmotionImage,ruta):
     print(ruta)
-    caracteristicas,emocionCorrecta=prepareFile(ruta)
+    caracteristicas,emocionCorrecta = prepareFile(ruta)
     print(caracteristicas)
     print(emocionCorrecta)
     pred=model.predict(caracteristicas)
@@ -132,7 +136,8 @@ def buttonPredictFunction(labelResultadoEmocion, labelEmotionImage,ruta):
     labelEmotionImage.image = emotionImage
     
 def buttonPlayFunction(rutaAudio):
-    rutaVLC = "D:/Program Files/VLC/vlc.exe"
+    #rutaVLC = "D:/Program Files/VLC/vlc.exe"
+    rutaVLC = "C:/Program Files/VideoLAN/VLC/vlc.exe"
     rutaAudio=rutaAudio.replace("/","\\")
     print(rutaAudio)
     

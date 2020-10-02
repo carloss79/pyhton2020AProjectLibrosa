@@ -38,20 +38,20 @@ labelRecordingText = Label(text ="Recording...", bg="lightgrey", font=("Times Ne
 
 
 
-stopIcon = ImageTk.PhotoImage(Image.open("../resources/stop.png").resize((30, 30), Image.ANTIALIAS))
-buttonStop = Button(image = stopIcon, bg="lightgrey",
-                    command=lambda:buttonStopFunction(labelAudioIcon,labelAudioText,labelRecordingText))
-buttonStop.place(x = 73, y = 150 , width=40, height=40)
+# stopIcon = ImageTk.PhotoImage(Image.open("../resources/stop.png").resize((30, 30), Image.ANTIALIAS))
+# buttonStop = Button(image = stopIcon, bg="lightgrey",
+#                     command=lambda:buttonStopFunction(labelAudioIcon,labelAudioText,labelRecordingText))
+# buttonStop.place(x = 73, y = 150 , width=40, height=40)
 
 playIcon = ImageTk.PhotoImage(Image.open("../resources/play.png").resize((30, 30), Image.ANTIALIAS))
 buttonPlay = Button(image = playIcon, bg="lightgrey",
                     command=lambda:buttonPlayFunction(ruta))
-buttonPlay.place(x = 126, y = 150 , width=40, height=40)
+buttonPlay.place(x = 20, y = 150 , width=200, height=40)
 
-pauseIcon = ImageTk.PhotoImage(Image.open("../resources/pause.png").resize((30, 30), Image.ANTIALIAS))
-buttonPause = Button(image = pauseIcon, bg="lightgrey",
-                    command=lambda:buttonPauseFunction())
-buttonPause.place(x = 180, y = 150 , width=40, height=40)
+# pauseIcon = ImageTk.PhotoImage(Image.open("../resources/pause.png").resize((30, 30), Image.ANTIALIAS))
+# buttonPause = Button(image = pauseIcon, bg="lightgrey",
+#                     command=lambda:buttonPauseFunction())
+# buttonPause.place(x = 180, y = 150 , width=40, height=40)
 
 buttonTrain = Button(text="Train", bg="#207863", font = ("Times New Roman", 15, "bold"),
                     command=lambda:buttonTrainFuntion())
@@ -86,9 +86,9 @@ buttonPredict = Button(text="Predict", bg="#207863", font = ("Times New Roman", 
                         command=lambda:buttonPredictFunction(labelResultadoEmocion, labelEmotionImage,ruta))
 buttonPredict.place(x = 20, y = 320 , width=200, height=30)
 
-recordIcon = ImageTk.PhotoImage(Image.open("../resources/record.png").resize((30, 30), Image.ANTIALIAS))
-buttonRecord = Button(image = recordIcon, bg="lightgrey",
-                    command=lambda:buttonRecordFunction(labelAudioIcon,labelAudioText,labelRecordingText, labelResultadoEmocion, labelEmotionImage))
-buttonRecord.place(x = 20, y = 150 , width=40, height=40)
+# recordIcon = ImageTk.PhotoImage(Image.open("../resources/record.png").resize((30, 30), Image.ANTIALIAS))
+# buttonRecord = Button(image = recordIcon, bg="lightgrey",
+#                     command=lambda:buttonRecordFunction(labelAudioIcon,labelAudioText,labelRecordingText, labelResultadoEmocion, labelEmotionImage))
+# buttonRecord.place(x = 20, y = 150 , width=40, height=40)
 
 root.mainloop() 
