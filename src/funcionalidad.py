@@ -21,7 +21,7 @@ def prepareFile(ruta):
     return x,y
 
 def load_data(test_size=0.2):
-    path = "C:\\Users\\carlos\\gitKraken\\pyhton2020AProjectLibrosa\\resources\\data\\Actor_*\\*.wav"
+    #path = "C:\\Users\\carlos\\gitKraken\\pyhton2020AProjectLibrosa\\resources\\data\\Actor_*\\*.wav"
 
     path = "../resources/data/Actor_*/*.wav"
     
@@ -136,8 +136,8 @@ def buttonPredictFunction(labelResultadoEmocion, labelEmotionImage,ruta):
     labelEmotionImage.image = emotionImage
     
 def buttonPlayFunction(rutaAudio):
-    #rutaVLC = "D:/Program Files/VLC/vlc.exe"
-    rutaVLC = "C:/Program Files/VideoLAN/VLC/vlc.exe"
+    rutaVLC = "D:/Program Files/VLC/vlc.exe"
+    #rutaVLC = "C:/Program Files/VideoLAN/VLC/vlc.exe"
     rutaAudio=rutaAudio.replace("/","\\")
     print(rutaAudio)
     
