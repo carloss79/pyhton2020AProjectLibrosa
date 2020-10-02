@@ -2,12 +2,12 @@ import librosa
 import soundfile
 import os, glob, pickle
 import numpy as np
+import subprocess
 from sklearn.model_selection import train_test_split
 from sklearn.neural_network import MLPClassifier
 from sklearn.metrics import accuracy_score
 from tkinter import messagebox
 from PIL import Image, ImageTk
-import random
 
 def prepareFile(ruta):
     x,y=[],[]
@@ -131,8 +131,13 @@ def buttonPredictFunction(labelResultadoEmocion, labelEmotionImage,ruta):
     labelEmotionImage.configure(image=emotionImage)
     labelEmotionImage.image = emotionImage
     
-def buttonPlayFunction():
-    pass
+def buttonPlayFunction(rutaAudio):
+    rutaVLC = "D:/Program Files/VLC/vlc.exe"
+    rutaAudio=rutaAudio.replace("/","\\")
+    print(rutaAudio)
+    
+    #r"C:\Users\carlos\gitKraken\pyhton2020AProjectLibrosa\resources\data\Actor_01\03-01-03-01-02-01-01.wav"
+    p = subprocess.Popen([rutaVLC,r"{}".format(rutaAudio)])
 
 def buttonPauseFunction():
     pass

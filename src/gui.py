@@ -45,7 +45,7 @@ buttonStop.place(x = 73, y = 150 , width=40, height=40)
 
 playIcon = ImageTk.PhotoImage(Image.open("../resources/play.png").resize((30, 30), Image.ANTIALIAS))
 buttonPlay = Button(image = playIcon, bg="lightgrey",
-                    command=lambda:buttonPlayFunction())
+                    command=lambda:buttonPlayFunction(ruta))
 buttonPlay.place(x = 126, y = 150 , width=40, height=40)
 
 pauseIcon = ImageTk.PhotoImage(Image.open("../resources/pause.png").resize((30, 30), Image.ANTIALIAS))
