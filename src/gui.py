@@ -44,9 +44,6 @@ buttonPause = Button(image = pauseIcon, bg="lightgrey",
                     command=lambda:buttonPauseFunction())
 buttonPause.place(x = 180, y = 150 , width=40, height=40)
 
-
-saludo="hola"
-
 buttonTrain = Button(text="Train", bg="#207863", font = ("Times New Roman", 15, "bold"),
                     command=lambda:buttonTrainFuntion())
 buttonTrain.place(x = 20, y = 220 , width=200, height=30)

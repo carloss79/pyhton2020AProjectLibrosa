@@ -9,22 +9,6 @@ from tkinter import messagebox
 from PIL import Image, ImageTk
 import random
 
-saludo = "hola"
-print(saludo)
-emotions={
-  '01':'neutral',
-  '02':'calm',
-  '03':'happy',
-  '04':'sad',
-  '05':'angry',
-  '06':'fearful',
-  '07':'disgust',
-  '08':'surprised'
-}
-#DataFlair - Emotions to observe
-observed_emotions=['calm', 'happy', 'fearful', 'disgust']
-
-
 def load_data(test_size=0.2):
     x,y=[],[]
     for file in glob.glob("C:\\Users\\carlos\\gitKraken\\pyhton2020AProjectLibrosa\\resources\\data\\Actor_*\\*.wav"):
@@ -56,32 +40,43 @@ def extract_feature(file_name, mfcc, chroma, mel):
             result=np.hstack((result, mel))
         return result
 
+emotions={
+  '01':'neutral',
+  '02':'calm',
+  '03':'happy',
+  '04':'sad',
+  '05':'angry',
+  '06':'fearful',
+  '07':'disgust',
+  '08':'surprised'
+}
+#DataFlair - Emotions to observe
+observed_emotions=['calm', 'happy', 'fearful', 'disgust']
+
+model=MLPClassifier(alpha=0.01, batch_size=256, epsilon=1e-08, hidden_layer_sizes=(300,), 
+                        learning_rate='adaptive', max_iter=500)
+x_train,x_test,y_train,y_test=load_data(test_size=0.25)
+
+
 def buttonTrainFuntion():
     
-    #DataFlair - Split the dataset
-    x_train,x_test,y_train,y_test=load_data(test_size=0.25)
     print((x_train.shape[0], x_test.shape[0]))
-    
     print(f'Features extracted: {x_train.shape[1]}')
-    model=MLPClassifier(alpha=0.01, batch_size=256, epsilon=1e-08, hidden_layer_sizes=(300,), 
-                        learning_rate='adaptive', max_iter=500)
-    
+    global model
     model.fit(x_train,y_train)
+    messagebox.showinfo(message="""Atributos del dataset: {}
+    Tamaño del dataset de Entrenamiento: {}
+    Tamaño del dataset de Prueba: {}                                
+                        """.format(x_train.shape[1],x_train.shape[0], x_test.shape[0]),
+                        title="Entrenamiento Finalizado")
+
+def buttonTestFuntion():
     y_pred=model.predict(x_test)
     #DataFlair - Calculate the accuracy of our model
     accuracy=accuracy_score(y_true=y_test, y_pred=y_pred)
     #DataFlair - Print the accuracy
     print("Accuracy: {:.2f}%".format(accuracy*100))
-    messagebox.showinfo(message="Modelo entrenado", title="Estado")
-    global saludo
-    saludo="adios"
-    print(saludo)
-
-
-def buttonTestFuntion():
-    print(saludo)
-    accuracy = "90" #TODO:REEMPLAZAR POR ACCURACY DEL MODELO
-    messagebox.showinfo(message="Modelo testeado\nAccuracy: " + accuracy+"%", title="Estado")
+    messagebox.showinfo(message="Modelo testeado\nSe obtuvo la siguiente precision\nAccuracy: {}%".format(accuracy), title="Testeo Finalizado")
 
 def buttonRecordFunction(labelAudioIcon, labelAudioText, labelRecordingText, labelResultadoEmocion, labelEmotionImage):
     messagebox.showinfo(message="Presione ACEPTAR cuando esté listo para grabar", title="Grabación")
