@@ -2,6 +2,12 @@ from tkinter import Frame, Label, Tk, Button, Toplevel, Entry, filedialog, messa
 from PIL import Image, ImageTk
 from funcionalidad import *
 
+ruta="ruta"
+def browsecsv():    
+    file = filedialog.askopenfile(parent=root,mode='rb',title='Choose a file')
+    print(file)
+    global ruta
+    ruta = file.name
 
 root = Tk() 
 root.title("EMOGNITION") 
@@ -15,6 +21,9 @@ labelMuestraText.place(x = 20, y = 10 , width=200, height=20)
 
 labelMuestraBackground = Label(text ="",  bg="lightgrey", borderwidth=2, relief="solid") 
 labelMuestraBackground.place(x = 20, y = 30 , width=200, height=100)
+
+bbutton= Button(root, text="File Browser",command=browsecsv)
+bbutton.place(x = 30, y = 40 , width=180, height=20)
 
 audioIcon = ImageTk.PhotoImage(Image.open("../resources/audio.png").resize((60, 60), Image.ANTIALIAS))
 labelAudioIcon = Label(image = audioIcon,  bg="lightgrey") 
@@ -74,7 +83,7 @@ labelEmotionImage = Label(bg="lightgrey")
 labelEmotionImage.place(x = 271, y = 121, width=178, height=208)
 
 buttonPredict = Button(text="Predict", bg="#207863", font = ("Times New Roman", 15, "bold"),
-                        command=lambda:buttonPredictFunction(labelResultadoEmocion, labelEmotionImage))
+                        command=lambda:buttonPredictFunction(labelResultadoEmocion, labelEmotionImage,ruta))
 buttonPredict.place(x = 20, y = 320 , width=200, height=30)
 
 recordIcon = ImageTk.PhotoImage(Image.open("../resources/record.png").resize((30, 30), Image.ANTIALIAS))

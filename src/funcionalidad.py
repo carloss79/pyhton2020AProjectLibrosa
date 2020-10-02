@@ -9,6 +9,17 @@ from tkinter import messagebox
 from PIL import Image, ImageTk
 import random
 
+def prepareFile(ruta):
+    x,y=[],[]
+    for file in glob.glob(ruta):
+        print(file)
+        file_name=os.path.basename(file)
+        emotion=emotions[file_name.split("-")[2]]
+        feature=extract_feature(file, mfcc=True, chroma=True, mel=True)
+        x.append(feature)
+        y.append(emotion)
+    return x,y
+
 def load_data(test_size=0.2):
     x,y=[],[]
     for file in glob.glob("C:\\Users\\carlos\\gitKraken\\pyhton2020AProjectLibrosa\\resources\\data\\Actor_*\\*.wav"):
@@ -19,6 +30,7 @@ def load_data(test_size=0.2):
         feature=extract_feature(file, mfcc=True, chroma=True, mel=True)
         x.append(feature)
         y.append(emotion)
+    
     return train_test_split(np.array(x), y, test_size=test_size, random_state=9)
 
 #funcion para extraer data de un audio
@@ -51,7 +63,8 @@ emotions={
   '08':'surprised'
 }
 #DataFlair - Emotions to observe
-observed_emotions=['calm', 'happy', 'fearful', 'disgust']
+#observed_emotions=['calm', 'happy', 'fearful', 'disgust','neutral','sad','angry','surprised']
+observed_emotions=['calm', 'happy', 'fearful', 'disgust','neutral']
 
 model=MLPClassifier(alpha=0.01, batch_size=256, epsilon=1e-08, hidden_layer_sizes=(300,), 
                         learning_rate='adaptive', max_iter=500)
@@ -76,7 +89,7 @@ def buttonTestFuntion():
     accuracy=accuracy_score(y_true=y_test, y_pred=y_pred)
     #DataFlair - Print the accuracy
     print("Accuracy: {:.2f}%".format(accuracy*100))
-    messagebox.showinfo(message="Modelo testeado\nSe obtuvo la siguiente precision\nAccuracy: {}%".format(accuracy), title="Testeo Finalizado")
+    messagebox.showinfo(message="Modelo testeado\nSe obtuvo la siguiente precision\nAccuracy: {:.2f}%".format(accuracy*100), title="Testeo Finalizado")
 
 def buttonRecordFunction(labelAudioIcon, labelAudioText, labelRecordingText, labelResultadoEmocion, labelEmotionImage):
     messagebox.showinfo(message="Presione ACEPTAR cuando esté listo para grabar", title="Grabación")
@@ -98,18 +111,26 @@ def buttonStopFunction(labelAudioIcon, labelAudioText, labelRecordingText):
     labelAudioText.place(x = 100, y = 50 , width=110, height=60)
 
 
-def buttonPredictFunction(labelResultadoEmocion, labelEmotionImage):
+def buttonPredictFunction(labelResultadoEmocion, labelEmotionImage,ruta):
+    print(ruta)
+    caracteristicas,emocionCorrecta=prepareFile(ruta)
+    print(caracteristicas)
+    print(emocionCorrecta)
+    pred=model.predict(caracteristicas)
+    print(pred)
+
     labelResultadoEmocion.place(x = 270, y = 70 , width=180, height=40)
     labelEmotionImage.place(x = 271, y = 121, width=178, height=208)
     
     #TODO: OBTENER LA PREDICCIÓN:'neutral','calm','happy','sad','angry','fearful','disgust','surprised'
-    prediction = random.choice(['sad','angry','happy','fearful','disgust','calm','surprised','neutral'])
+    #prediction = random.choice(['sad','angry','happy','fearful','disgust','calm','surprised','neutral'])
+    prediction = pred[0]
 
     labelResultadoEmocion.configure(text=prediction)
-    emotionImage = ImageTk.PhotoImage(Image.open("resources/emotions/" + prediction + ".png").resize((170, 200), Image.ANTIALIAS))
+    emotionImage = ImageTk.PhotoImage(Image.open("../resources/emotions/" + prediction + ".png").resize((170, 200), Image.ANTIALIAS))
     labelEmotionImage.configure(image=emotionImage)
     labelEmotionImage.image = emotionImage
-
+    
 def buttonPlayFunction():
     pass
 
